@@ -5,21 +5,21 @@ import { AiFillLinkedin } from "react-icons/ai";
 const sections = [
   {
     title: "Section 1",
-    link: "https://example.com"
+    link: "https://example.com",
   },
   {
     title: "Section 2",
-    link: "https://example.com"
+    link: "https://example.com",
   },
   {
     title: "Section 3",
-    link: "https://example.com"
-  }
+    link: "https://example.com",
+  },
 ];
 
 const SectionCard = ({ title, link }) => (
   <button
-    className="block w-full px-4 py-3 m-4 text-lg font-semibold text-gray-800 bg-white border border-gray-300 rounded-full hover:bg-gray-100 focus:outline-none focus:bg-gray-100"
+    className="block w-full p-4 lg:m-1  text-lg font-semibold text-gray-800 bg-white border border-gray-300 rounded-md lg:rounded-full hover:bg-gray-100 focus:outline-none focus:bg-gray-100"
     onClick={() => window.location.assign(link)}
   >
     {title}
@@ -27,11 +27,11 @@ const SectionCard = ({ title, link }) => (
 );
 
 const Hello = () => {
-  const profileImage = "https://drive.google.com/uc?id=1eMBhZ4DGhRmPZ8Fg8Vd4IE34w4s2SjRE";
+  const profileImage =
+    "https://drive.google.com/uc?id=1eMBhZ4DGhRmPZ8Fg8Vd4IE34w4s2SjRE";
 
   return (
     <div id="Hello" className="min-h-screen bg-white pt-20">
-      
       <div className="flex flex-col-reverse lg:flex-row justify-between">
         <div className="w-full lg:w-1/2 flex justify-center items-center lg:ml-0 pl-5 lg:pl-0 bg-gradient-to-b from-white to-white">
           <div>
@@ -64,12 +64,13 @@ const Hello = () => {
           </div>
         </div>
       </div>
-      <div className="border-solid border-4 border-slate-400 lg:rounded-full rounded-lg p-1 mt-20 lg:mt-32 lg:mx-24 lg:flex justify-between shadow-lg hover:shadow-xl duration-200">
+      <div className="border-solid border-4 border-slate-400 lg:rounded-full rounded-lg p-8 mt-20 lg:mt-32 mx-3 lg:mx-24 lg:flex justify-between shadow-lg hover:shadow-xl duration-300">
         {sections.map((section, index) => (
-          <SectionCard key={index} {...section} />
+          <div key={index} className="w-full lg:w-1/2 lg:flex-grow">
+            <SectionCard {...section} />
+          </div>
         ))}
       </div>
-      
     </div>
   );
 };

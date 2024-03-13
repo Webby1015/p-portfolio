@@ -29,9 +29,13 @@ const AwardsAndCertificates = () => {
       </h2>
       <div className="lg:grid grid-cols-3 gap-4">
         {placeholderAwards.map((award, index) => (
-          <div key={index} className="bg-transparent p-2 bg-opacity-35 rounded-lg  duration-200 flex flex-col items-center m-5">
-            <img src={award.image} alt={award.name} className="mx-auto shadow-xl rounded-lg hover:shadow-2xl mb-4 w-96 h-52 object-cover" />
-            <p className="text-sm text-center">{award.name}</p>
+          <div key={index} className="bg-transparent p-2 bg-opacity-35 rounded-lg duration-200 flex flex-col items-center m-5">
+            <img
+              src={award.image}
+              alt={award.name}
+              className="mx-auto shadow-md rounded-sm hover:shadow-2xl transition-shadow duration-300 mb-4 w-96 h-52 object-cover"
+            />
+            <p className="text-lg  text-center">{award.name}</p>
           </div>
         ))}
       </div>

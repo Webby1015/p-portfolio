@@ -43,7 +43,7 @@ const TechnicalSkills = () => {
 
   const SkillCard = ({ imageSrc, altText, skillName }) => (
     <div className="p-5">
-      <div className="bg-white rounded-lg shadow-lg p-2 bg-opacity-35 hover:shadow-2xl duration-200">
+      <div className="bg-white rounded-lg shadow-lg p-2 bg-opacity-35 hover:shadow-2xl duration-300">
         <img
           src={imageSrc}
           alt={altText}
