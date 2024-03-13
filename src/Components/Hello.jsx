@@ -1,8 +1,33 @@
 import React from "react";
 import { AiFillLinkedin } from "react-icons/ai";
 
+// keep sections less than 9
+const sections = [
+  {
+    title: "Section 1",
+    link: "https://example.com"
+  },
+  {
+    title: "Section 2",
+    link: "https://example.com"
+  },
+  {
+    title: "Section 3",
+    link: "https://example.com"
+  }
+];
+
+const SectionCard = ({ title, link }) => (
+  <button
+    className="block w-full px-4 py-3 m-4 text-lg font-semibold text-gray-800 bg-white border border-gray-300 rounded-full hover:bg-gray-100 focus:outline-none focus:bg-gray-100"
+    onClick={() => window.location.assign(link)}
+  >
+    {title}
+  </button>
+);
+
 const Hello = () => {
-  const profileImage = "https://drive.google.com/file/d/1eMBhZ4DGhRmPZ8Fg8Vd4IE34w4s2SjRE/preview";
+  const profileImage = "https://drive.google.com/uc?id=1eMBhZ4DGhRmPZ8Fg8Vd4IE34w4s2SjRE";
 
   return (
     <div id="Hello" className="min-h-screen bg-white pt-20">
@@ -18,9 +43,15 @@ const Hello = () => {
             <h3 className="text-lg lg:text-xl font-bold mb-2 lg:mb-4 text-gray-900 leading-tight">
               3D Artist
             </h3>
-            <button>
-              <AiFillLinkedin size={32} />
-            </button>
+            {/* <button>
+              <a
+                href="https://www.linkedin.com/in/prakharsharma/"
+                className="flex items-center px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors duration-300"
+              >
+                <AiFillLinkedin size={24} className="mr-2" />
+                LinkedIn
+              </a>
+            </button> */}
           </div>
         </div>
         <div className="w-full lg:w-1/2 flex justify-center items-center bg-gradient-to-b from-white to-white">
@@ -33,25 +64,10 @@ const Hello = () => {
           </div>
         </div>
       </div>
-      <div className="border-solid  border-4 border-slate-400 lg:rounded-full rounded-lg p-1 mt-20 lg:mt-32  lg:mx-24 lg:flex  justify-between shadow-lg hover:shadow-xl duration-200">
-        <div className="flex-1 px-4 py-4 lg:py-6 border-b border-r lg:border-r-0 lg:border-b-0 border-gray-300">
-          <h3 className="text-lg lg:text-xl font-semibold mb-2 text-center">Section 1</h3>
-          <p className="text-gray-700 mx-10">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-          </p>
-        </div>
-        <div className="flex-1 px-4 py-4 lg:py-6 border-b border-r lg:border-r-0 lg:border-b-0 border-gray-300">
-          <h3 className="text-lg lg:text-xl font-semibold mb-2 text-center">Section 2</h3>
-          <p className="text-gray-700 mx-10">
-            Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-          </p>
-        </div>
-        <div className="flex-1 px-4 py-4 lg:py-6 border-b lg:border-b-0 border-gray-300">
-          <h3 className="text-lg lg:text-xl font-semibold mb-2 text-center">Section 3</h3>
-          <p className="text-gray-700 mx-10">
-            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.
-          </p>
-        </div>
+      <div className="border-solid border-4 border-slate-400 lg:rounded-full rounded-lg p-1 mt-20 lg:mt-32 lg:mx-24 lg:flex justify-between shadow-lg hover:shadow-xl duration-200">
+        {sections.map((section, index) => (
+          <SectionCard key={index} {...section} />
+        ))}
       </div>
       
     </div>
