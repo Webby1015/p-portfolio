@@ -8,6 +8,39 @@ const TechnicalSkills = () => {
     background: "linear-gradient(to bottom, #87CEFA, #87CEEB)",
   };
 
+  const skillsData = [
+    {
+      imageSrc: placeholderImageURL,
+      altText: "Autodesk Maya",
+      skillName: "Autodesk Maya",
+    },
+    {
+      imageSrc: placeholderImageURL,
+      altText: "Autodesk 3ds Max",
+      skillName: "Autodesk 3ds Max",
+    },
+    {
+      imageSrc: "https://www.adobe.com/content/dam/cc/icons/pt_appicon_256.svg",
+      altText: "Substance Painter",
+      skillName: "Substance Painter",
+    },
+    {
+      imageSrc: "https://www.adobe.com/content/dam/acom/one-console/icons_rebrand/ps_appicon.svg",
+      altText: "Photoshop",
+      skillName: "Photoshop",
+    },
+    {
+      imageSrc: placeholderImageURL,
+      altText: "Illustrator",
+      skillName: "Illustrator",
+    },
+    {
+      imageSrc: placeholderImageURL,
+      altText: "After Effects",
+      skillName: "After Effects",
+    },
+  ];
+
   const SkillCard = ({ imageSrc, altText, skillName }) => (
     <div className="p-5">
       <div className="bg-white rounded-lg shadow-lg p-2 bg-opacity-35 hover:shadow-2xl duration-200">
@@ -31,38 +64,16 @@ const TechnicalSkills = () => {
         <span className="">Technical</span> <span className="font-thin">S</span>
         <span className="font-thin bg-violet-300 rounded-full">kills</span>
       </h2>
-      <div className="lg:grid grid-cols-3 gap-4">
+      <div className="lg:grid grid-cols-3 gap-2">
         {/* Skill Cards */}
-        <SkillCard
-          imageSrc={placeholderImageURL}
-          altText="Autodesk Maya"
-          skillName="Autodesk Maya"
-        />
-        <SkillCard
-          imageSrc={placeholderImageURL}
-          altText="Autodesk 3ds Max"
-          skillName="Autodesk 3ds Max"
-        />
-        <SkillCard
-          imageSrc="https://www.adobe.com/content/dam/cc/icons/pt_appicon_256.svg"
-          altText="Substance Painter"
-          skillName="Substance Painter"
-        />
-        <SkillCard
-          imageSrc="https://www.adobe.com/content/dam/acom/one-console/icons_rebrand/ps_appicon.svg"
-          altText="Photoshop"
-          skillName="Photoshop"
-        />
-        <SkillCard
-          imageSrc={placeholderImageURL}
-          altText="Illustrator"
-          skillName="Illustrator"
-        />
-        <SkillCard
-          imageSrc={placeholderImageURL}
-          altText="After Effects"
-          skillName="After Effects"
-        />
+        {skillsData.map((skill, index) => (
+          <SkillCard
+            key={index}
+            imageSrc={skill.imageSrc}
+            altText={skill.altText}
+            skillName={skill.skillName}
+          />
+        ))}
       </div>
     </div>
   );

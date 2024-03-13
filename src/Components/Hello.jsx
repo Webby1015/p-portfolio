@@ -2,9 +2,11 @@ import React from "react";
 import { AiFillLinkedin } from "react-icons/ai";
 
 const Hello = () => {
-  const profileImage = "src/assets/profile.jpg";
+  const profileImage = "https://drive.google.com/file/d/1eMBhZ4DGhRmPZ8Fg8Vd4IE34w4s2SjRE/preview";
+
   return (
     <div id="Hello" className="min-h-screen bg-white pt-20">
+      
       <div className="flex flex-col-reverse lg:flex-row justify-between">
         <div className="w-full lg:w-1/2 flex justify-center items-center lg:ml-0 pl-5 lg:pl-0 bg-gradient-to-b from-white to-white">
           <div>
@@ -51,6 +53,7 @@ const Hello = () => {
           </p>
         </div>
       </div>
+      
     </div>
   );
 };

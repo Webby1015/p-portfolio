@@ -3,11 +3,15 @@ import { CgProfile } from "react-icons/cg";
 import { IoMdFolderOpen } from "react-icons/io";
 import { LuTrophy } from "react-icons/lu";
 import { FaRegEnvelope } from "react-icons/fa";
+import { AiOutlineProject } from "react-icons/ai"; 
 import Hello from "../Components/Hello";
 import AboutMe from "../Components/AboutMe";
 import TechnicalSkills from "../Components/TechnicalSkills";
 import AwardsAndCertificates from "../Components/AwardsAndCertificates";
-import ContactMe from "../Components/ContactMe"
+import ContactMe from "../Components/ContactMe";
+import Projects from "../Components/Projects";
+import Footer from '../Components/Footer';
+
 
 function Home() {
   const scrollToSection = (id) => {
@@ -44,6 +48,13 @@ function Home() {
           <IoMdFolderOpen size={24} />
         </button>
         <button
+          title="Projects"
+          onClick={() => scrollToSection("Projects")} // Add the onClick handler
+          className="mb-4 text-white bg-slate-800 p-2 rounded-full hover:text-gray-800 hover:bg-white hover:ring-black hover:ring-2 duration-200"
+        >
+          <AiOutlineProject size={24} /> {/* Add the Projects icon */}
+        </button>
+        <button
           title="Awards & Certificates"
           onClick={() => scrollToSection("Awards")}
           className="mb-4 text-white bg-slate-800 p-2 rounded-full hover:text-gray-800 hover:bg-white hover:ring-black hover:ring-2 duration-200"
@@ -57,14 +68,17 @@ function Home() {
         >
           <FaRegEnvelope size={24} />
         </button>
+        
       </nav>
 
       <div className="w-full">
-        <Hello/>
-        <AboutMe/>
+        <Hello />
+        <AboutMe />
         <TechnicalSkills />
-        <AwardsAndCertificates/>
+        <Projects />
+        <AwardsAndCertificates />
         <ContactMe />
+        <Footer />
       </div>
     </div>
   );
