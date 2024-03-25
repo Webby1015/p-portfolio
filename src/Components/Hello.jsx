@@ -1,34 +1,64 @@
-import React from "react";
-import { AiFillLinkedin } from "react-icons/ai";
+import React, { useEffect, useState } from "react";
+import { db, storage } from "../Config/firebase";
+import { ref, getDownloadURL } from "firebase/storage";
+import { getDocs, collection } from "firebase/firestore";
 
-// keep sections less than 9
-const sections = [
-  {
-    title: "Section 1",
-    link: "https://example.com",
-  },
-  {
-    title: "Section 2",
-    link: "https://example.com",
-  },
-  {
-    title: "Section 3",
-    link: "https://example.com",
-  },
-];
-
-const SectionCard = ({ title, link }) => (
-  <button
-    className="block w-full p-4 lg:m-1  text-lg font-semibold text-gray-800 bg-white border border-gray-300 rounded-md lg:rounded-full hover:bg-gray-100 focus:outline-none focus:bg-gray-100"
-    onClick={() => window.location.assign(link)}
-  >
-    {title}
-  </button>
-);
+const sections = [];
 
 const Hello = () => {
-  const profileImage =
-    "https://drive.google.com/uc?id=1eMBhZ4DGhRmPZ8Fg8Vd4IE34w4s2SjRE";
+  const [profileUrl, setProfileUrl] = useState("");
+  const [name, setName] = useState("");
+  const [role, setRole] = useState("");
+  const NameAndRoleRef = collection(db, "Home");
+  const LinksRef = collection(db, "Links");
+  const [sections, setSections] = useState([]);
+
+  // useEffect to fetch NameAndRole and Links on component mount
+  useEffect(() => {
+    getNameAndRole();
+    getLinks();
+    getImageUrl(); // Corrected: Call getImageUrl to get profile image URL
+  }, []);
+
+  // Function to get profile image URL from Firebase Storage
+  const getImageUrl = async () => {
+    const imageRef = ref(storage, "ProfilePicture/image");
+    try {
+      const url = await getDownloadURL(imageRef);
+      setProfileUrl(url);
+    } catch (error) {
+      setProfileUrl("");
+    }
+  };
+
+  // Function to get Name and Role from Firestore
+  const getNameAndRole = async () => {
+    try {
+      const data = await getDocs(NameAndRoleRef);
+      const filteredData = data.docs.map((doc) => ({
+        ...doc.data(),
+        id: doc.id,
+      }));
+      setName(filteredData[0]?.Name || "");
+      setRole(filteredData[0]?.Role || "");
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  // Function to get Links from Firestore
+  const getLinks = async () => {
+    try {
+      const data = await getDocs(LinksRef);
+      const filteredData = data.docs.map((doc) => ({
+        ...doc.data(),
+        id: doc.id,
+      }));
+      setSections(filteredData);
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   return (
     <div id="Hello" className="min-h-screen bg-white pt-20">
@@ -37,11 +67,11 @@ const Hello = () => {
           <div>
             <h2 className="text-base lg:text-lg">Hello, I am</h2>
             <h2 className="text-3xl lg:text-4xl font-extrabold mb-2 lg:mb-4 text-gray-900 leading-tight">
-              Prakhar Sharma
+              {name}
             </h2>
             <hr className="border-b-2 lg:border-b-4 border-blue-600 mb-2 lg:mb-4" />
             <h3 className="text-lg lg:text-xl font-bold mb-2 lg:mb-4 text-gray-900 leading-tight">
-              3D Artist
+              {role}
             </h3>
             {/* <button>
               <a
@@ -57,7 +87,7 @@ const Hello = () => {
         <div className="w-full lg:w-1/2 flex justify-center items-center bg-gradient-to-b from-white to-white">
           <div className="w-48 h-48 lg:w-80 lg:h-80 rounded-full overflow-hidden">
             <img
-              src={profileImage}
+              src={profileUrl}
               alt="Your Picture"
               className="object-cover w-full h-full bg-black"
             />
@@ -67,7 +97,14 @@ const Hello = () => {
       <div className="border-solid border-4 border-slate-400 lg:rounded-full rounded-lg p-8 mt-20 lg:mt-32 mx-3 lg:mx-24 lg:flex justify-between shadow-lg hover:shadow-xl duration-300">
         {sections.map((section, index) => (
           <div key={index} className="w-full lg:w-1/2 lg:flex-grow">
-            <SectionCard {...section} />
+            <a
+              className="block w-full p-4 lg:m-1 text-lg font-semibold text-gray-800 bg-white border border-gray-300 rounded-md lg:rounded-full hover:bg-gray-100 focus:outline-none focus:bg-gray-100 text-center"
+              href={section.Link}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {section.Name}
+            </a>
           </div>
         ))}
       </div>

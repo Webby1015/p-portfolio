@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { db } from "../Config/firebase"; // Import your Firebase configuration
+import { getDocs, collection } from "firebase/firestore";
 
 const TechnicalSkills = () => {
   // Online placeholder image URL
@@ -8,44 +10,33 @@ const TechnicalSkills = () => {
     background: "linear-gradient(to bottom, #87CEFA, #87CEEB)",
   };
 
-  const skillsData = [
-    {
-      imageSrc: placeholderImageURL,
-      altText: "Autodesk Maya",
-      skillName: "Autodesk Maya",
-    },
-    {
-      imageSrc: placeholderImageURL,
-      altText: "Autodesk 3ds Max",
-      skillName: "Autodesk 3ds Max",
-    },
-    {
-      imageSrc: "https://www.adobe.com/content/dam/cc/icons/pt_appicon_256.svg",
-      altText: "Substance Painter",
-      skillName: "Substance Painter",
-    },
-    {
-      imageSrc: "https://www.adobe.com/content/dam/acom/one-console/icons_rebrand/ps_appicon.svg",
-      altText: "Photoshop",
-      skillName: "Photoshop",
-    },
-    {
-      imageSrc: placeholderImageURL,
-      altText: "Illustrator",
-      skillName: "Illustrator",
-    },
-    {
-      imageSrc: placeholderImageURL,
-      altText: "After Effects",
-      skillName: "After Effects",
-    },
-  ];
+  // State to hold the skills data
+  const [skillsData, setSkillsData] = useState([]);
+
+  useEffect(() => {
+    getTechnicalSkills();
+  }, []);
+
+  const SkillsRef = collection(db, "TechnicalSkills");
+
+  const getTechnicalSkills = async () => {
+    try {
+      const data = await getDocs(SkillsRef);
+      const filteredData = data.docs.map((doc) => ({
+        ...doc.data(),
+        id: doc.id,
+      }));
+      setSkillsData(filteredData);
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   const SkillCard = ({ imageSrc, altText, skillName }) => (
     <div className="p-5">
       <div className="bg-white rounded-lg shadow-lg p-2 bg-opacity-35 hover:shadow-2xl duration-300">
         <img
-          src={imageSrc}
+          src={imageSrc || placeholderImageURL}
           alt={altText}
           className="mx-auto mb-2 rounded-full h-48"
         />

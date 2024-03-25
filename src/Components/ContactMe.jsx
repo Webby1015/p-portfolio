@@ -1,8 +1,44 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { collection, getDocs } from "firebase/firestore";
+import { ref, getDownloadURL } from "firebase/storage";
+import { db, storage } from "../Config/firebase"; // assuming you have firebase.js setup
 
 const ContactMe = () => {
+  const [contact, setContact] = useState({});
+  const [resume, setResume] = useState("");
+  
   const gradientStyle = {
     background: "linear-gradient(to bottom, #F0F8FF, white)",
+  };
+
+  const ContactRef = collection(db, "contactInfo");
+
+  useEffect(() => {
+    getContactInfo();
+    getImageUrl();
+  }, []);
+
+  const getImageUrl = async () => {
+    const imageRef = ref(storage, "Resume/resume");
+    try {
+      const url = await getDownloadURL(imageRef);
+      setResume(url);
+    } catch (error) {
+      setResume("");
+    }
+  };
+
+  const getContactInfo = async () => {
+    try {
+      const data = await getDocs(ContactRef);
+      const filteredData = data.docs.map((doc) => ({
+        ...doc.data(),
+        id: doc.id,
+      }));
+      setContact(filteredData[0]);
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   return (
@@ -18,43 +54,43 @@ const ContactMe = () => {
         <p className="text-lg mb-4 text-center">
           Feel free to reach out to me:
         </p>
-        <div class="bg-gray-200 lg:p-10 w-9/12 lg:mb-10 rounded-md shadow-inner">
-          <div class="flex flex-row flex-wrap justify-center">
-            <div class="w-full md:w-1/2 lg:w-1/2 xl:w-1/4 p-4">
-              <div class="bg-blue-200 shadow-md rounded px-6 py-8">
-                <p class="text-lg">
+        <div className="bg-gray-200 lg:p-10 w-9/12 lg:mb-10 rounded-md shadow-inner">
+          <div className="flex flex-row flex-wrap justify-center">
+            <div className="w-full md:w-1/2 lg:w-1/2 xl:w-1/4 p-4">
+              <div className="bg-blue-200 shadow-md rounded px-6 py-8">
+                <p className="text-lg">
                   Email:{" "}
-                  <a href="mailto:example@example.com" class="text-blue-700">
-                    Write an Email
+                  <a href={`mailto:${contact.email}`} className="text-blue-700">
+                    {contact.email}
                   </a>
                 </p>
               </div>
             </div>
-            <div class="w-full md:w-1/2 lg:w-1/3 xl:w-1/4 p-4">
-              <div class="bg-green-200 shadow-md rounded px-6 py-8">
-                <p class="text-lg">
+            <div className="w-full md:w-1/2 lg:w-1/3 xl:w-1/4 p-4">
+              <div className="bg-green-200 shadow-md rounded px-6 py-8">
+                <p className="text-lg">
                   Phone:{" "}
-                  <a href="tel:+1234567890" class="text-green-700">
-                    +1234567890
+                  <a href={`tel:${contact.phone}`} className="text-green-700">
+                    {contact.phone}
                   </a>
                 </p>
               </div>
             </div>
-            <div class="w-full md:w-1/2 lg:w-1/3 xl:w-1/4 p-4">
-              <div class="bg-yellow-200 shadow-md rounded px-6 py-8">
-                <p class="text-lg">
+            <div className="w-full md:w-1/2 lg:w-1/3 xl:w-1/4 p-4">
+              <div className="bg-yellow-200 shadow-md rounded px-6 py-8">
+                <p className="text-lg">
                   Linkedin:{" "}
-                  <a href="#" class="text-yellow-700">
+                  <a href={contact.linkedin} className="text-yellow-700">
                     View Profile
                   </a>
                 </p>
               </div>
             </div>
-            <div class="w-full md:w-1/2 lg:w-1/3 xl:w-1/4 p-4">
-              <div class="bg-red-200 shadow-md rounded px-6 py-8">
-                <p class="text-lg">
+            <div className="w-full md:w-1/2 lg:w-1/3 xl:w-1/4 p-4">
+              <div className="bg-red-200 shadow-md rounded px-6 py-8">
+                <p className="text-lg">
                   Resume:{" "}
-                  <a href="#" class="text-red-700">
+                  <a href={resume} className="text-red-700" target="_blank" rel="noopener noreferrer">
                     Download
                   </a>
                 </p>
