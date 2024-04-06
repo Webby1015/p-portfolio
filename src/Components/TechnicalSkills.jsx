@@ -38,7 +38,7 @@ const TechnicalSkills = () => {
         <img
           src={imageSrc || placeholderImageURL}
           alt={altText}
-          className="mx-auto mb-2 rounded-full h-48"
+          className="mx-auto mb-2 rounded-full h-48 w-48 object-cover"
         />
         <p className="text-center">{skillName}</p>
       </div>

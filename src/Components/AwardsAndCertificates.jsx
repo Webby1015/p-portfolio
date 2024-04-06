@@ -41,11 +41,13 @@ const AwardsAndCertificates = () => {
       <div className="lg:grid grid-cols-3 gap-4">
         {certificates.map((certificate, index) => (
           <div key={index} className="bg-transparent p-2 bg-opacity-35 rounded-lg duration-200 flex flex-col items-center m-5">
+            <a href={certificate.image || placeholderImageURL} target="_blank" > 
             <img
               src={certificate.image || placeholderImageURL}
               alt={certificate.name}
-              className="mx-auto shadow-md rounded-sm hover:shadow-2xl transition-shadow duration-300 mb-4 w-96 h-52 object-cover"
+              className="mx-auto shadow-md rounded-sm hover:shadow-2xl transition-shadow duration-300 mb-4 w-96 h-52 object-contain bg-white "
             />
+            </a>
             <p className="text-lg  text-center">{certificate.name}</p>
           </div>
         ))}
